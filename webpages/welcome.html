@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../libs/bootstrap/bootstrap.min.css" rel="stylesheet" />
+
+    <title>>Welcome to NAVI Assistant Extension</title>
+
+    <style>
+      .contact {
+        background-color: #03a9f4;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 p-4 m-3">
+          <img
+            class="d-block mx-auto mb-3"
+            src="../icons/icon48.png"
+            alt="NAVI logo"
+          />
+          <h1 class="text-center text-secondary">Welcome to NAVI Assistant</h1>
+          <h6 class="text-center text-secondary">
+            Please fill in the following form before using the assistant
+          </h6>
+          <hr />
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-8 m-3">
+          <form id="myForm" action="submited.html">
+            <div class="form-group mb-3">
+              <label for="inputAge">Age</label>
+              <select class="form-control" id="inputAge">
+                <option value="Under 18 years">Under 18 years</option>
+                <option value="18 years to 24 years">
+                  18 years to 24 years
+                </option>
+                <option value="25 years to 34 years">
+                  25 years to 34 years
+                </option>
+                <option value="35 years to 44 years">
+                  35 years to 44 years
+                </option>
+                <option value="45 years to 54 years">
+                  45 years to 54 years
+                </option>
+                <option value="Over 54 years">Over 54 years</option>
+              </select>
+            </div>
+            <div class="form-group mb-3">
+              <label for="inputGender">Gender</label>
+              <select class="form-control" id="inputGender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group mb-3">
+              <label for="inputEducation">Education</label>
+              <select class="form-control" id="inputEducation">
+                <option value="High school degree">High school degree</option>
+                <option value="Bachelor's degree">Bachelor's degree</option>
+                <option value="Master's degree">Master's degree</option>
+                <option value="Doctoral degree">Doctoral degree</option>
+              </select>
+            </div>
+            <div class="form-group mb-3">
+              <label for="inputExperience"
+                >Previous experience using Visual Programming Language
+                Blocks</label
+              >
+              <select class="form-control" id="inputExperience">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="None">None</option>
+              </select>
+            </div>
+            <div class="form-check mb-3">
+              <input type="checkbox" class="form-check-input" id="checkData" />
+              <label class="form-check-label text-justify" for="checkData">
+
+                <p style="text-align: justify;">
+                  I authorize NAVI Assistant to capture images of my person, in
+                  photograph or video, with or without voice, during the use of
+                  the same and the collection of data derived from the use of
+                  the extension. I also authorize the researchers of the
+                  University of Cádiz to use the film material that I provide in
+                  the complete and partial recording of my image, voice,
+                  opinions, statements, comments, and reactions.
+                </p>
+
+                <p style="text-align: justify;">
+                  In compliance with the provisions of Regulation (EU) 2016/679,
+                  General Personal Data Protection, we inform you that the
+                  personal data obtained through the use of the NAVI Assistant
+                  extension are going to be treated with your consent and for
+                  the exclusive purpose of research and improvement of NAVI
+                  Assistant by the researchers of the University of Cádiz, and
+                  will be incorporated into its databases and for which it is
+                  responsible. Photographic images and other film material
+                  recorded with your image and voice will in no case be stored.
+                  The authorizing party may exercise the rights of access,
+                  rectification, deletion, limitation, and other rights provided
+                  for in the regulations by sending their request to the
+                  following address:
+                  <a href="mailto:ruben.baena@uca.es">ruben.baena@uca.es</a>
+                </p>
+              </label>
+            </div>
+            <button
+              id="submitBtn"
+              type="submit"
+              class="btn btn-primary mx-auto d-block"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-8 p-2 m-3">
+          <hr />
+          <h6 class="text-center text-secondary">
+            Contact email:
+            <a href="mailto:ruben.baena@uca.es">ruben.baena@uca.es</a>
+          </h6>
+        </div>
+      </div>
+    </div>
+
+    <script src="form_validator.js"></script>
+    <script src="../libs/bootstrap/popper.min.js"></script>
+    <script src="../libs/bootstrap/bootstrap.min.js"></script>
+  </body>
+</html>
