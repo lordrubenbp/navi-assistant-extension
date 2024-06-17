@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "NAVI Assistant",
+  "description": "Assistant for the development of apps with visual block language",
+  "version": "0.2.4",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "http://ai2.appinventor.mit.edu/*",
+        "https://ai2.appinventor.mit.edu/*",
+        "http://dockerspace.uca.es/*"
+      ],
+      "js": ["register.js", "content.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "df.css",
+        "icons/icon32.png",
+        "libs/*",
+        "register.js",
+        "libs/dialogflow.js",
+        "listeners/*",
+        "socket_exchange.js",
+        "models/*"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_icon": "icons/icon32.png"
+  },
+  "background": {
+    "service_worker": "service_worker.js"
+  },
+  "host_permissions": ["http://ai2.appinventor.mit.edu/*",
+                      "https://ai2.appinventor.mit.edu/*"],
+
+  "permissions": ["tabs", "activeTab", "desktopCapture", "scripting", "storage"]
+}
