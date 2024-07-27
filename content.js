@@ -1,5 +1,4 @@
 
-//Esta funcion srive para injectar los scripts en el html de la pagina web
 function injectScript(file, tag, id) {
     var node = document.getElementsByTagName(tag)[0];
     var script = document.createElement('script');
@@ -9,7 +8,6 @@ function injectScript(file, tag, id) {
     node.appendChild(script);
 }
 
-//Esta funcion recopila todos los script/librerias que deben injectarse en la pagina web y los injecta a la vez
 function injectScripts() {
 
     injectScript(chrome.runtime.getURL('libs/socket.io.js'), 'body', "socket.io");
@@ -29,9 +27,7 @@ function injectScripts() {
 
 }
 
-//En Kodular al injectar Registro peta, no se si sera por el nombre de la clase pero entra en conflicto con su clase js de material design
 
-//Cuando carge la pagina de AI2----
 window.onload = function () {
 
 
@@ -45,13 +41,10 @@ window.onload = function () {
         project_guided_name: "none"
     });
 
-    //Me aseguro que el usuario ha complimentado el formulario inicial de la extension
     chrome.storage.sync.get(['auth'], function (result) {
 
-        //console.log(result.auth);
 
         if (result.auth) {
-            //injecto el script/listener principal
            
             injectScript(chrome.runtime.getURL('listeners/global_listener.js'), 'body');
             injectScript(chrome.runtime.getURL('listeners/face_expression_listener.js'), 'body', 'face_expression_listener');
@@ -65,16 +58,13 @@ window.onload = function () {
 
 };
 
-//Centralita de mensajes que llegan de otros scripts de la extension
 window.addEventListener("message", function (event) {
     // We only accept messages from ourselves
     if (event.source != window)
         return;
 
-    //Si me llega un mensaje del servidor...    
     if (event.data.type && (event.data.type == "FROM_SERVER")) {
 
-        //si el usuario cambia de proyecto de AI2 recargo la pagina por si las moscas
         if (event.data.msg.type == "project_changed") {
 
             location.reload();
@@ -89,13 +79,7 @@ window.addEventListener("message", function (event) {
 
     }
 
-    //Si es una interaccion con la plataforma lo que recibo, le añado los campos del usuario y lo mando al servidor
     if (event.data.type && (event.data.type == "INTERACTION_LOG")) {
-
-        //CON ESTA FUNCION DEBO PASAR EL OBJETO REGISTER A BACKGROUND PARA LA COMUNICACION CON EL SERVER
-
-        //window.postMessage({ type: "FACE_DETECTION"}, "*")
-
         
         let register = Object.assign(new Register(), event.data.register);
 
@@ -113,7 +97,6 @@ window.addEventListener("message", function (event) {
             register.project_guided = result.project_guided_name;
             register.user = user;
 
-            //Lo mando a socket_exchange para que lo mande al server
             window.postMessage({ type: "SEND_TO_SERVER", msg: register }, "*");
 
 
@@ -126,7 +109,6 @@ window.addEventListener("message", function (event) {
         chrome.storage.sync.set({
             automatic_evaluation: event.data.automatic_evaluation
         });
-        //automatic_evaluation = event.data.automatic_evaluation;
 
     }
 
@@ -143,11 +125,9 @@ window.addEventListener("message", function (event) {
         chrome.storage.sync.set({
             project_guided_name: event.data.project_guided_name
         });
-        //automatic_evaluation = event.data.automatic_evaluation;
 
     }
 
-    //Si el usuario ha cambiado el idioma, almaceno mi nueva variable de idioma y recargo la pagina
     if (event.data.type && (event.data.type == "RELOAD_CHATBOT")) {
 
         chrome.storage.sync.set({
@@ -155,7 +135,6 @@ window.addEventListener("message", function (event) {
         });
 
         window.location.search="?locale="+event.data.lang.toLowerCase()+"_"+event.data.lang.toUpperCase();
-        //location.reload();
 
     }
 
@@ -173,10 +152,8 @@ window.addEventListener("message", function (event) {
         console.debug("Listener de Dialogflow cargado");
 
 
-        //Cuando me aseguro que dialog_listener esta cargado, cojo el valor del lenguaje que tiene el usuario y mando un mensaje a dialog_listener para que cree el chatbot
         var script = document.getElementById('dialog_listener');
 
-        //Esto solo se ejecutara cuando el script este cargado
         script.addEventListener('load', function () {
 
             chrome.storage.sync.get(['lang'], function (result) {
