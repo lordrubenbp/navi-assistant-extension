@@ -16,8 +16,6 @@ function getClassElement(element) {
 
 }
 
-
-//Capturo todo los eventos que suponen una interaccion del usuario con la interfaz de AI2
 $(document).on("blur focus focusin focusout load resize unload click " +
     "dblclick mousedown mouseup create drag dragenter mouseover" +
     "change select submit keydown keypress keyup error message ",
@@ -40,9 +38,6 @@ $(document).on("blur focus focusin focusout load resize unload click " +
                 }
 
                 if (typeof (e.target.innerText) != 'undefined') {
-
-
-                    //voy a discriminar a los paneles grandes que me dan demasiado resultado
 
                     if ((e.target instanceof HTMLTableCellElement) == false) {
 
@@ -88,8 +83,6 @@ $(document).on("blur focus focusin focusout load resize unload click " +
 
 
                                             element.data = data;
-
-                                            //Con este condicional en el momento de cambiar de espacio se notifica el cambio de espacio de trabajo
 
                                             try {
                                                 
