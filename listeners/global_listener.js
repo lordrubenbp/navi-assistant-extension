@@ -3,12 +3,8 @@ var islistenersInjected = false;
 var injectedBlockListenerScript = false;
 window.workspace = "Designer";
 
-
-
-//Esta funcion me dice el espacio de trabajo donde esta el usuario
 function getWorkspace() {
 
-    //Dependiendo de la version de AI2 podre verlo directamente con la funcion HTML5DragDrop_isBlocksEditorOpen(), o tendre que deducirlo
     try {
 
         var newWorkspace;
@@ -27,13 +23,10 @@ function getWorkspace() {
             $.each($(".ode-TextButton-up-disabled"), function (index, value) {
                 if (value.textContent.includes("Designer")) {
 
-                    //console.log(value.textContent);
                     newWorkspace = value.textContent;
-                    //window.workspace="Designer";
 
                 } else if (value.textContent.includes("Blocks")) {
 
-                    //console.log(value.textContent);
                     newWorkspace = value.textContent;
                 }
 
@@ -43,7 +36,6 @@ function getWorkspace() {
 
 
 
-        //Cuando cambie el usuario al espacio de bloques...pido que se injecte el listener de bloques
         if (newWorkspace == "Blocks" && window.workspace == "Designer") {
 
             if (injectedBlockListenerScript == false) {
@@ -53,18 +45,13 @@ function getWorkspace() {
                 injectedBlockListenerScript = true;
             } else {
 
-                //CUANDO ya he creado por primera vez el script
-                //las siguientes veces injecto esta llamada para que borre y vuelva a pillar todos los listener
-                //esto es necesario por si creo una nueva pantalla
-
-
+    
                 window.dispatchEvent(new CustomEvent('reload'));
 
             }
 
         }
 
-        //console.log(window.workspace);
         window.workspace = newWorkspace;
 
     } catch (error) {
@@ -80,7 +67,6 @@ function getWorkspace() {
 }
 
 
-//Esta funcion recopila el nombre de usuario, nombre de pantalla y nombre de proyecto, leyendo la interfaz de la pantalla
 function getProjectData() {
 
 
@@ -103,8 +89,6 @@ function getProjectData() {
 
         window.projectName = window.ReplState.phoneState.packageName.split(".")[2];
 
-        // window.screenName = Blockly.mainWorkspace.formName.split("_")[1];
-        // window.projectName = Blockly.mainWorkspace.projectId;
 
 
     } catch (error) {
@@ -117,7 +101,6 @@ function getProjectData() {
 
 }
 
-//Esta funcion comprueba que la variable Blocky de AI2 se ha cargado
 function isProjectLoaded() {
 
 
@@ -134,7 +117,6 @@ function isProjectLoaded() {
 }
 
 
-//Esta funcion manda los mensajes correspondientes a content.js para que injecte los listener 
 function initListeners() {
 
     if (islistenersInjected == false) {
@@ -149,7 +131,6 @@ function initListeners() {
     }
 
 }
-//Cada un determinado rango de tiempo se comprueba que los listener estan injectados, el espacio de trabajo y los datos basicos del proyecto
 setInterval(function () {
 
     if (isProjectLoaded()) {
