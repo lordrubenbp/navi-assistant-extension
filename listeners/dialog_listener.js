@@ -3,7 +3,6 @@ var bubble_container = document.createElement("div");
 var bubble_text = document.createElement("p");
 var color_box=document.createElement("span");
 var pg_active = false;
-//No creo el chatbot hasta que recibo el idioma en que debo ponerlo
 window.addEventListener("message", function (event) {
 
     if (event.source != window)
@@ -55,7 +54,6 @@ function openHideTutorialBar() {
 
 }
 
-//Creo el chatbot en la pagina web
 function createMessenger(lang, icon, css) {
 
     try {
@@ -65,23 +63,19 @@ function createMessenger(lang, icon, css) {
         meta.setAttribute("name", "viewport");
         meta.setAttribute("content", "width=device-width, initial-scale=1");
 
-        //var path = chrome.runtime.getURL('df.css');
         var dfcss = document.createElement('link');
         dfcss.setAttribute("rel", "stylesheet");
         dfcss.setAttribute("type", "text/css");
         dfcss.setAttribute("href", css);
         document.head.appendChild(dfcss);
 
-        //Pongo las propiedades tanto al contenedor de los mensajes de los proyectos guiados, como al rectangulo en si
 
         bubble_container.setAttribute("id", "tutorial_bar_container");
-        //bubble_container.style.zIndex="100000";
         bubble_container.style.margin = "1rem 0 1rem 0";
         bubble_container.style.display = "none";
         bubble_container.style.pointerEvents = "none";
 
         bubble.setAttribute("id", "tutorial_bar");
-        // bubble.innerHTML= "";
         bubble_text.setAttribute("id", "tutorial_bar_text");
         bubble_text.innerHTML = "";
         bubble.style.fontFamily = "sans-serif";
@@ -109,8 +103,6 @@ function createMessenger(lang, icon, css) {
 
         $('#tutorial_bar_text').fadeOut();
 
-        //console.log(df);
-
     } catch (error) {
 
         console.warn(error);
@@ -129,8 +121,6 @@ function createMessenger(lang, icon, css) {
     $("df-messenger").on("df-request-sent df-response-received df-messenger-loaded",
         function (e) {
 
-            // console.log(e.originalEvent.detail);
-            // console.log(window.userName);
             var register = new Register();
             var element = new Element();
             var user = new User();
@@ -150,7 +140,6 @@ function createMessenger(lang, icon, css) {
             register.blocksXml = xmlStr;
 
 
-            //console.log(e);
             switch (e.type) {
 
                 case "df-messenger-loaded":
@@ -177,8 +166,6 @@ function createMessenger(lang, icon, css) {
                         data.push(new ElementData("queryText", e.originalEvent.detail.requestBody.queryInput.text.text));
                         data.push(new ElementData("languageCode", e.originalEvent.detail.requestBody.queryInput.text.languageCode));
                     }
-                    //data.push(new ElementData("queryText", e.originalEvent.detail.requestBody.queryInput.text.text));
-                    //data.push(new ElementData("languageCode", e.originalEvent.detail.requestBody.queryInput.text.languageCode));
                     data.push(new ElementData("target", e.originalEvent.target.localName));
 
                     element.data = data;
@@ -197,7 +184,6 @@ function createMessenger(lang, icon, css) {
                         data.push(new ElementData("action", e.originalEvent.detail.response.queryResult.action));
                     }
 
-                    //data.push(new ElementData("action", e.originalEvent.detail.response.queryResult.action));
 
                     if (typeof (e.originalEvent.detail.response.queryResult.allRequiredParamsPresent) != 'undefined') {
                         data.push(new ElementData("allRequiredParamsPresent", e.originalEvent.detail.response.queryResult.allRequiredParamsPresent));
@@ -240,7 +226,6 @@ function createMessenger(lang, icon, css) {
 
                     if (typeof (e.originalEvent.detail.response.queryResult.sentimentAnalysisResult) != 'undefined') {
 
-                        //console.debug(e.originalEvent.detail.response.queryResult.sentimentAnalysisResult);
 
                         data.push(new ElementData("sentimentAnalysisResult", e.originalEvent.detail.response.queryResult.sentimentAnalysisResult.queryTextSentiment.score));
                     }
@@ -286,7 +271,6 @@ function createMessenger(lang, icon, css) {
 
                         case "CHANGE_LANGUAGE":
 
-                            //console.log(e.originalEvent.detail.response.queryResult.parameters.language);
                             if (e.originalEvent.detail.response.queryResult.parameters.language == "es" || e.originalEvent.detail.response.queryResult.parameters.language == "en") {
 
                                 window.postMessage({ type: "RELOAD_CHATBOT", lang: e.originalEvent.detail.response.queryResult.parameters.language }, "*");
@@ -300,11 +284,6 @@ function createMessenger(lang, icon, css) {
                             break;
                     }
 
-                    //  if (e.originalEvent.detail.response.queryResult.action == "WANT_EVALUATION") {
-
-                    //      register.require_evaluation = true;
-
-                    //  }
 
                     break;
 
@@ -313,15 +292,12 @@ function createMessenger(lang, icon, css) {
 
             register.element = element;
 
-            //console.log(register);
-
             window.postMessage({ type: "INTERACTION_LOG", register: register }, "*");
 
 
         });
 
 
-    //Sino devuelvo este evento, no me deja escribir en el chatbot en el espacio de Bloques
     $("df-messenger").on("keypress", function (e) {
 
         e.stopImmediatePropagation();
@@ -331,19 +307,11 @@ function createMessenger(lang, icon, css) {
 
     $("df-messenger").on("df-messenger-loaded", function (e) {
 
-        //console.log("CARGADO");
-
-
-
     });
-
-
-
 
 
 }
 
-//Escucho los mensajes no tratados por dialogflow del servidor y los pinto en el chatbot
 function showServerResponse() {
 
     function getColorHexaCode(message) {
@@ -353,8 +321,6 @@ function showServerResponse() {
               resultado = [];
         
         while ((grupo = regex.exec(texto)) !== null) {
-            //el grupo 1 contiene las comillas utilizadas
-            //el grupo 2 es el texto dentro de éstas
             resultado.push(grupo[2]);
         }
     
@@ -370,8 +336,6 @@ function showServerResponse() {
             return;
         if (event.data.type && (event.data.type == "DIALOG_MESSAGE")) {
 
-            //console.log(event.data.msg);
-
             const dfMessenger = document.querySelector('df-messenger');
 
             if (event.data.msg.type == "evaluation") {
@@ -382,12 +346,9 @@ function showServerResponse() {
             } else if (event.data.msg.type == "tutorial") {
 
 
-                //dfMessenger.setAttribute('expand', '');
-
                 dfMessenger.renderCustomText(event.data.msg.data);
 
                 animateTutorialBar();
-                // bubble.innerHTML=event.data.msg.data;
 
                 if(event.data.msg.data.includes("#")){
 
@@ -407,15 +368,12 @@ function showServerResponse() {
 
             } else if (event.data.msg.type == "tutorial_time") {
 
-
-                //dfMessenger.setAttribute('expand', '');
                 dfMessenger.renderCustomText(event.data.msg.data);
 
 
             } else if (event.data.msg.type == "tutorial_end") {
 
                 bubble_container.style.display = "none";
-                // bubble.innerHTML="";
                 bubble_text.innerHTML = "";
                 dfMessenger.setAttribute('expand', '');
                 const payload = JSON.parse(event.data.msg.data);
