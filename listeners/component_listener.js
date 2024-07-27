@@ -78,12 +78,8 @@ function checkComponentsChanges(new_components, old_components) {
                     }
                 }
                 if (found == false) {
-                    //component = new_components[i].name;
-                    //type = new_components[i].type;
-
                     data.push(new ElementData("type", new_components[i].type));
                     data.push(new ElementData("name", new_components[i].name));
-                    //console.log("CREADO: " + component);
                     hasResults = true;
                     break;
                 } else {
@@ -106,11 +102,8 @@ function checkComponentsChanges(new_components, old_components) {
                 }
                 if (found == false) {
 
-                    //component = old_components[i].name;
-                    //type = old_components[i].type;
                     data.push(new ElementData("type", old_components[i].type));
                     data.push(new ElementData("name", old_components[i].name));
-                    //console.log("BORRADO: " + component);
                     hasResults = true;
                     break;
                 } else {
@@ -127,13 +120,9 @@ function checkComponentsChanges(new_components, old_components) {
                     if ((new_components[y].id == old_components[i].id) && (new_components[y].name != old_components[i].name)) {
 
                         action = "changeComponentName";
-                        //component = new_components[y].name;
-                        //type = new_components[y].type;
-
                         data.push(new ElementData("type", new_components[y].type));
                         data.push(new ElementData("name", new_components[y].name));
 
-                        //console.log("CAMBIADO: " + component);
                         hasResults = true;
                         break;
                     }
@@ -156,8 +145,6 @@ function checkComponentsChanges(new_components, old_components) {
 
                                 if (new_components[y].properties[x].value != old_components[i].properties[x].value) {
 
-                                    //type = new_components[y].name + "-" + new_components[y].properties[x].name;
-                                    //component = new_components[y].properties[x].value;
 
                                     data.push(new ElementData("type", new_components[y].type));
                                     data.push(new ElementData("name", new_components[y].name));
@@ -165,7 +152,6 @@ function checkComponentsChanges(new_components, old_components) {
                                     data.push(new ElementData("property", new_components[y].properties[x].name));
                                     data.push(new ElementData("newValue", new_components[y].properties[x].value));
 
-                                    //console.log("CAMBIADO: " + component);
                                     hasResults = true;
                                     break;
 
@@ -189,8 +175,7 @@ function checkComponentsChanges(new_components, old_components) {
     } else {
 
         action = "changeScreen";
-        //component = new_components[0].name;
-        //type = new_components[0].type;
+       
 
         data.push(new ElementData("type", new_components[0].type));
         data.push(new ElementData("name", new_components[0].name));
