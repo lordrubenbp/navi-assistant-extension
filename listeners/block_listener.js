@@ -1,6 +1,4 @@
-//TODO Blockly.Xml.workspaceToDom(Blockly.mainWorkspace,false) esta sentencia me devuelve el xml del workspace
 
-//Esta funcion carga o recarga la subscripcion a los eventos de los bloques que proporciona el propio Blocky
 function reloadBlocklyListeners() {
 
     console.debug("Cargando listener de bloques...");
@@ -9,7 +7,6 @@ function reloadBlocklyListeners() {
 
         Blockly.Workspace.getById(name[1].id).removeChangeListener(onBlocklyChanged);
     });
-    //mira todos los workspaces disponibles y le añade el listener
 
     Object.entries(Blockly.allWorkspaces).forEach(function (name) {
 
@@ -212,24 +209,16 @@ window.addEventListener('blockly', function (e) {
                     register.blocksXml = new XMLSerializer().serializeToString(window.Blockly.Xml.workspaceToDom(Blockly.mainWorkspace, false));
                     register.timeStamp = Date.now();
                     register.url = window.location.hostname;
-
-                    // element.type = last_block_type;
-                    //element.value = last_block_text;
                     element.type = elementTypes.BLOCK;
                     element.data = data;
                     register.element = element;
-
-
-
                     window.postMessage({ type: "INTERACTION_LOG", register: register }, "*");
-                    //console.log(register);
                 }
 
             }
 
         }
     } else {
-        //console.log("");
     }
 
 }, false);
