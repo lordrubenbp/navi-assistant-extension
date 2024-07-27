@@ -1,6 +1,5 @@
 
 var socket = io.connect('https://XXXXXXX.com', {
-    //var socket = io.connect('https://26c5-84-122-159-51.ngrok.io', {
     transports: ['polling'],
     path: '/socket.io'
 });
@@ -10,11 +9,8 @@ function normalizeExpressionCapture(expressions){
     let normalized = [];
     expressions.forEach((x)=>{
          
-      // Checking if there is any object in arr2
-      // which contains the key value
        if(normalized.some((val)=>{ return val["expression"] == x["expression"] })){
            
-         // If yes! then increase the occurrence by 1
          normalized.forEach((k)=>{
            if(k["expression"] === x["expression"]){ 
              k["percent"]++
@@ -24,9 +20,7 @@ function normalizeExpressionCapture(expressions){
         })
            
        }else{
-         // If not! Then create a new object initialize 
-         // it with the present iteration key's value and 
-         // set the occurrence to 1
+         
          let a = {}
          a["expression"] = x["expression"]
          a["percent"] = 1
@@ -65,14 +59,11 @@ window.addEventListener("message", async function (event) {
 
                 expressions.sort((a, b) => b.probability - a.probability);
 
-                //window.expressions.push(expressions[0].expression);
                 window.expressions.push(expressions[0]);
 
 
             }
-             
-                //console.log(normalizeExpressionCapture(window.expressions));
-               
+                            
                 element.data.push(new ElementData("faceDetectionExpression", normalizeExpressionCapture(window.expressions)));
                 window.expressions=[];
                 register.element = element;
@@ -94,8 +85,6 @@ window.addEventListener("message", async function (event) {
 });
 
 socket.on("from_server", function (data) {
-
-    //console.log(data);
 
     window.postMessage({ type: "FROM_SERVER", msg: data }, "*");
 
