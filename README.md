@@ -22,7 +22,7 @@ Follow these steps to install and set up the extension in your browser:
 
 1. Clone this repository:
     ```bash
-    git clone https://gitlab.com/navi-assistant/Extension.git
+    git clone https://github.com/lordrubenbp/navi-assistant-extension.git
     ```
 2. Navigate to the project directory:
     ```bash
